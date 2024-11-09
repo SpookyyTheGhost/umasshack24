@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const scene = new THREE.Scene();
 
@@ -15,13 +16,47 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
 document.body.appendChild( renderer.domElement );
 
+const sam = new THREE.Object3D;
+const modelLoader = new GLTFLoader();
+modelLoader.load( '/models/sam.glb', function ( gltf ) {
+    // Traverse the model to access all children and their materials
+    gltf.scene.traverse((child) => {
+        if (child.isMesh) {
+			// Extract the geometry from the mesh
+            const geometry = child.geometry;
 
+<<<<<<< Updated upstream
 const geometry = new THREE.BoxGeometry( 1,1,1 ); 
 const material = new THREE.PointsMaterial( { color: 0xffffff, wireframe:true});
 material.size = 0.04;
 const cube = new THREE.Points( geometry, material );
+=======
+            // Create a PointsMaterial for rendering the vertices as points
+            const pointsMaterial = new THREE.PointsMaterial({
+                color: 0xffffff, // Color of the points
+                size: 0.02,      // Size of each point
+            });
+>>>>>>> Stashed changes
 
-scene.add( cube );
+            // Create a Points object from the geometry and the material
+            const points = new THREE.Points(geometry, pointsMaterial);
+
+            // Add the Points object to the scene
+            scene.add(points);
+        }
+    });
+
+
+}, undefined, (error) => {
+    console.error('An error occurred while loading the GLTF model:', error);
+});
+
+// const geometry = new THREE.BoxGeometry( 1,1,1 ); 
+// const material = new THREE.PointsMaterial( { color: 0xffffff});
+// material.size = 0.04;
+// const cube = new THREE.Points( geometry, material );
+
+// scene.add( cube );
 
 // Instantiates OrbitControls
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -32,14 +67,21 @@ controls.maxDistance = 7; // Maximum zoom distance
 
 camera.position.z = 5;
 
+<<<<<<< Updated upstream
 // Handles scene resizing
+=======
+// Load the font
+
+
+
+>>>>>>> Stashed changes
 window.addEventListener('resize', () => {
 	const width = window.innerWidth;
 	const height = window.innerHeight;
 
 	renderer.setSize(width, height);
 
-	camera.aspect = width / height;
+	camera.aspect = width	 / height;
 
 	camera.updateProjectionMatrix();
 });
