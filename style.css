@@ -31,14 +31,17 @@ h1 {
   line-height: 1.1;
 }
 
-input {
+.Entry input {
   background-color:white;
   color:black;
   border-color:transparent;
-
+  text-align: center;
+  box-sizing:border-box;
+  position: relative;
+  
 }
 
-input:focus{
+.Entry input:focus{
   outline:none;
   border:none;
 }
@@ -55,8 +58,17 @@ input:focus{
   color: black;
   font-size: 16px;
   text-align: center;
-
   border-radius: 20px;
   box-sizing: border-box;
 }
+
+#submit {
+  position:absolute;      
+  top: 50%;
+  left: 90%;                              
+  transform: translate(-50%, -50%); 
+  width: 20px;             
+  height: 20px;          
+}
+
 

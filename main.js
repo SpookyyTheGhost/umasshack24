@@ -1,4 +1,4 @@
-import './style.css'
+import './style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
@@ -30,6 +30,7 @@ controls.maxDistance = 7; // Maximum zoom distance
 
 camera.position.z = 5;
 
+// Handles scene resizing
 window.addEventListener('resize', () => {
 	const width = window.innerWidth;
 	const height = window.innerHeight;

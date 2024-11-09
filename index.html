@@ -4,13 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ver.Tech</title>
-    <link rel = "stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <script type="module" src="/main.js"></script>
-  </body>
+    <div class="Entry">
+      <form autocomplete="off">
+        <input type="text" placeholder="Guess Here" id="Guess" name="Guess" maxlength="20">
+        <input type="image" id="submit" src="img/arrow icon.png">
+      </form>
+      
+    </div>
 
-  <div class="Entry">
-      <input type="text" value="Guess Here" id="Guess" name="Guess">
-  </div>
+    <script type="module" src="/main.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const text = document.getElementById('Guess');
+        const subBut = document.getElementById('submit');
+
+        function getGuess(event) {
+          event.preventDefault();
+          var guess = text.value;
+          console.log(guess);  
+        }
+
+        subBut.addEventListener('click', getGuess);
+      });
+    </script>
+  </body>
 </html>
