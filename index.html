@@ -9,16 +9,22 @@
   <body>
     <div class="Entry">
       <form autocomplete="off" id = "form">
-        <input type="text" placeholder="Guess Here" id="guess" name="Guess" maxlength="20">
+        <input type="text" placeholder="Guess Here" id="guess" name="Guess" maxlength="30">
         <input type="image" id="submit" src="img/arrow icon.png">
       </form>
-      
     </div>
+
+    <div class="Logo">
+      <img src="img/logo.png">
+    </div>
+
     <script type="module" src="/main.js"></script>
   </body>
 
     <script type="module" src="/main.js"></script>
+
     <script>
+      
       document.addEventListener('DOMContentLoaded', () => {
         const text = document.getElementById('guess');
         const subBut = document.getElementById('submit');
@@ -29,7 +35,7 @@
           var guess = text.value;
           form.reset();
           console.log(guess);  
-        }
+      }
 
         subBut.addEventListener('click', getGuess);
       });

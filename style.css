@@ -38,7 +38,7 @@ h1 {
   text-align: center;
   box-sizing:border-box;
   position: relative;
-  
+  font-size: medium;
 }
 
 .Entry input:focus{
@@ -61,8 +61,8 @@ h1 {
 
 .Entry{
   position:absolute;
-  height:auto;
-  width:auto;
+  height:45px;
+  width:300px;
   bottom:50px;
   left:50%;
   transform:translateX(-50%);
@@ -74,6 +74,17 @@ h1 {
   animation: fadeIn 1s ease-in-out;
   border-radius: 20px;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+.Logo{
+  position:absolute;
+  scale:75%;
+  top:20px;
+  left:85px;
+  transform:translate(-50%);
 }
 
 #submit {
