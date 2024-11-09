@@ -2,12 +2,9 @@ import './style.css'
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-
 const scene = new THREE.Scene();
 
 scene.background = new THREE.Color(0x121212);
-
-
 
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
@@ -24,21 +21,29 @@ const cube = new THREE.Points( geometry, material );
 
 scene.add( cube );
 
+// Instantiates OrbitControls
 const controls = new OrbitControls(camera, renderer.domElement);
 
-
-
+// Set zoom limits
+controls.minDistance = 2; // Minimum zoom distance
+controls.maxDistance = 7; // Maximum zoom distance
 
 camera.position.z = 5;
 
+window.addEventListener('resize', () => {
+	const width = window.innerWidth;
+	const height = window.innerHeight;
+
+	renderer.setSize(width, height);
+
+	camera.aspect = width / height;
+
+	camera.updateProjectionMatrix();
+});
+
 function animate() {
-
-
-
 	controls.update();
-
 	renderer.render( scene, camera );
-
 }
 
-animate()
+renderer.setAnimationLoop(animate);
