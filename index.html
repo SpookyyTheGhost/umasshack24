@@ -8,25 +8,26 @@
   </head>
   <body>
     <div class="Entry">
-      <form autocomplete="off">
-        <input type="text" placeholder="Guess Here" id="Guess" name="Guess" maxlength="20">
+      <form autocomplete="off" id = "form">
+        <input type="text" placeholder="Guess Here" id="guess" name="Guess" maxlength="20">
         <input type="image" id="submit" src="img/arrow icon.png">
       </form>
       
     </div>
-    <script type="module" src="/icon.js" id="icon"></script>
     <script type="module" src="/main.js"></script>
   </body>
 
     <script type="module" src="/main.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const text = document.getElementById('Guess');
+        const text = document.getElementById('guess');
         const subBut = document.getElementById('submit');
+        const form = document.getElementById('form');
 
         function getGuess(event) {
           event.preventDefault();
           var guess = text.value;
+          form.reset();
           console.log(guess);  
         }
 

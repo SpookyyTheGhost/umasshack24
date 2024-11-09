@@ -46,6 +46,9 @@ h1 {
   border:none;
 }
 
+.Entry input:focus::placeholder{
+  color:transparent;
+}
 
 @keyframes fadeIn {
   from {

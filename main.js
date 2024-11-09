@@ -57,15 +57,11 @@ const controls = new OrbitControls(camera, renderer.domElement);
 // Set zoom limits
 controls.minDistance = 2; // Minimum zoom distance
 controls.maxDistance = 7; // Maximum zoom distance
-const controls = new OrbitControls(camera, renderer.domElement);
 
 camera.position.z = 5;
 
 // Handles scene resizing
 // Load the font
-
-
-
 window.addEventListener('resize', () => {
 	const width = window.innerWidth;
 	const height = window.innerHeight;
@@ -78,7 +74,6 @@ window.addEventListener('resize', () => {
 });
 
 function animate() {
-	controls.update();
 	controls.update();
 	renderer.render( scene, camera );
 }
