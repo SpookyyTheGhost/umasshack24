@@ -43,6 +43,15 @@ input:focus{
   border:none;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .Entry{
   position:absolute;
   height:auto;
@@ -55,8 +64,10 @@ input:focus{
   color: black;
   font-size: 16px;
   text-align: center;
-
+  animation: fadeIn 1s ease-in-out;
   border-radius: 20px;
   box-sizing: border-box;
 }
+
+
 
