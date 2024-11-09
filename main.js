@@ -25,18 +25,11 @@ modelLoader.load( '/models/sam.glb', function ( gltf ) {
 			// Extract the geometry from the mesh
             const geometry = child.geometry;
 
-<<<<<<< Updated upstream
-const geometry = new THREE.BoxGeometry( 1,1,1 ); 
-const material = new THREE.PointsMaterial( { color: 0xffffff, wireframe:true});
-material.size = 0.04;
-const cube = new THREE.Points( geometry, material );
-=======
             // Create a PointsMaterial for rendering the vertices as points
             const pointsMaterial = new THREE.PointsMaterial({
                 color: 0xffffff, // Color of the points
                 size: 0.02,      // Size of each point
             });
->>>>>>> Stashed changes
 
             // Create a Points object from the geometry and the material
             const points = new THREE.Points(geometry, pointsMaterial);
@@ -67,14 +60,11 @@ controls.maxDistance = 7; // Maximum zoom distance
 
 camera.position.z = 5;
 
-<<<<<<< Updated upstream
 // Handles scene resizing
-=======
 // Load the font
 
 
 
->>>>>>> Stashed changes
 window.addEventListener('resize', () => {
 	const width = window.innerWidth;
 	const height = window.innerHeight;

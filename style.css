@@ -46,13 +46,6 @@ h1 {
   border:none;
 }
 
-#icon{
-  position:absolute;
-  height:auto;
-  width:auto;
-  bottom:50px;
-  text-align: right;
-}
 
 @keyframes fadeIn {
   from {
