@@ -49,7 +49,8 @@ loader.load('/fonts/droid_sans_regular.typeface.json', function (font) {
             bevelSegments: 5
         });
         textGeometry.center();
-        const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe:true, transparent:true,opacity:0}); //currently invis        const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+        const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe:true, transparent:true,opacity:0}); //currently invis        
+		const textMesh = new THREE.Mesh(textGeometry, textMaterial);
         scene.add(textMesh);
     },
     undefined,
