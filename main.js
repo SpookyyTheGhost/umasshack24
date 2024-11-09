@@ -1,5 +1,7 @@
 import './style.css'
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+
 
 const scene = new THREE.Scene();
 
@@ -14,10 +16,16 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
 document.body.appendChild( renderer.domElement );
 
+
 const geometry = new THREE.BoxGeometry( 1,1,1 ); 
-const material = new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe:true} );
-const cube = new THREE.Mesh( geometry, material );
+const material = new THREE.PointsMaterial( { color: 0xffffff, wireframe:true});
+material.size = 0.04;
+const cube = new THREE.Points( geometry, material );
+
 scene.add( cube );
+
+const controls = new OrbitControls(camera, renderer.domElement);
+
 
 
 
@@ -25,8 +33,9 @@ camera.position.z = 5;
 
 function animate() {
 
-	cube.rotation.x += 0.01;
-	cube.rotation.y += 0.01;
+
+
+	controls.update();
 
 	renderer.render( scene, camera );
 
