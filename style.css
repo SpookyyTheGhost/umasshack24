@@ -118,6 +118,10 @@ h1 {
   animation: fadeIn 1s ease-in-out;
 }
 
+.show{
+  animation: fadeIn 0.55s ease-out;
+}
+
 .shake {
   animation: Shake 0.25s ease-in-out;
 }

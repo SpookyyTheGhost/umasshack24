@@ -103,8 +103,13 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             box.classList.remove('shake');
         }, 500);    
-        if(timesWrong == 3){
-            document.getElementById("hint").textContent = "Hint: "+objects[currentObjIndex][2];
+        if(timesWrong == 5){
+            const hint = document.getElementById('hint')
+            hint.textContent = "Hint: "+objects[currentObjIndex][2];
+            hint.classList.add('show')
+            setTimeout(() => {
+                hint.classList.remove('show');
+            }, 600);  
         }
 
         
