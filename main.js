@@ -24,8 +24,12 @@ var objects = [
     ["donut.glb", ["donut", "doughnut"],  "We got some from Dunk's!"], 
     ["churro.glb", ["churro", "long star thing"], "Comes with a lot of sugar, cinnamon, and melted chocolate"],
     ["apple.glb", ["apple", "ringo", "manzana"], "Keeps the doctor away"],
-    ["energydrink.glb", ["energy drink", "red bull", "redbull", "monster energy", "monster", "monster can", "can", "soda", "coke", "pop"], "Gives you wings"],
-    ["monkey.glb", ["monkey", "chimp", "monke", "suzanne"], "Don't go bananas!"]
+    ["energydrink.glb", ["energy drink", "red bull", "redbull", "monster energy", "monster", "monster can", "can", "soda", "kan", "soda can", "coke", "pop"], "Gives you wings"],
+    ["monkey.glb", ["monkey", "chimp", "monke", "suzanne"], "Don't go bananas!"],
+    ["cube.glb", ["cube", "prism"], "Guess what shape the connected vertices would create."],
+    ["teapot.glb", ["teapot", "tea pot", "kettle", "tea kettle", "teakettle", "pot"], "Tea"],
+    ["boat.glb", ["boat", "steamboat", "steam boat", "benchy", "ship", "3dbenchy", "3d benchy"], "Full steam ahead!"],
+    ["gem.glb", ["gem", "gemstone", "gem stone", "diamond", "ruby"], "Shiny!"]
 ]
 
 var funcReturn = newObject(objects, -1);
