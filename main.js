@@ -66,7 +66,7 @@ function newObject(objects, indexToRemove){
     }
     var currentObjIndex = Math.floor(Math.random() * objects.length); //random num from [0, objects.length)
     const modelLoader = new GLTFLoader();
-    modelLoader.load( '/models/'+objects[currentObjIndex][0], function ( gltf ) {
+    modelLoader.load( './models/'+objects[currentObjIndex][0], function ( gltf ) {
         // Traverse the model to access all children and their materials
         gltf.scene.traverse((child) => {
             if (child.isMesh) {
