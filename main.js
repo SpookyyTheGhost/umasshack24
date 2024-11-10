@@ -16,9 +16,8 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
 document.body.appendChild( renderer.domElement );
 
-const sam = new THREE.Object3D;
 const modelLoader = new GLTFLoader();
-modelLoader.load( '/models/sam.glb', function ( gltf ) {
+modelLoader.load( './models/sam.glb', function ( gltf ) {
     // Traverse the model to access all children and their materials
     gltf.scene.traverse((child) => {
         if (child.isMesh) {
