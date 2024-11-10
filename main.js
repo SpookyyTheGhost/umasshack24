@@ -54,6 +54,8 @@ objects = funcReturn[0];
 var currentObjIndex = funcReturn[1];
 var timesWrong = 0;
 var intro = true;
+var pressed = false
+
 //intro
 const txtbox = document.getElementById('main');
 txtbox.classList.add('intro')
@@ -72,9 +74,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const subBut = document.getElementById('submit');
     const form = document.getElementById('form');
     const box = document.getElementById('main');
-    
+    const button = document.getElementById("start");
+
+    if(intro){
+        button.addEventListener('click', () => {
+            while(scene.children.length > 0){ 
+                scene.remove(scene.children[0]); 
+            }
+            funcReturn = newObject(objects, currentObjIndex);
+            objects = funcReturn[0];
+            currentObjIndex = funcReturn[1];
+            button.style.transform = 'translateX(100vw)';
+        });
+    }
     function getGuess(event) {
         var correct = false;
+
         if(intro){
             while(scene.children.length > 0){ 
                 scene.remove(scene.children[0]); 
@@ -84,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentObjIndex = funcReturn[1];
             timesWrong = 0;
         }
+
         if(fullObjectScreen){
             fullObjectScreen = false;
             while(scene.children.length > 0){ 
@@ -107,10 +123,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 fullObjectScreen = true;
                 funcReturn = newObject(objects, currentObjIndex);
-                
-
                 timesWrong = 0;
                 correct = true;
+                document.getElementById("info").textContent = "Press Enter to Continue!";
+                document.getElementById("info").classList.add('show');
+                setTimeout(() => {
+                    document.getElementById("info").classList.remove('show');
+                }, 600);
+                document.getElementById("guess").placeholder = "Correct";
                 break;
             }
         }
@@ -140,6 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function winGameScreen(){
     scene.rotation.set(0,0,0);
     document.getElementById("main").style.display = "none";
+    document.getElementById('Popup').style.display = "none";
     document.getElementById("hint").textContent = "";
     while(scene.children.length > 0){ 
         scene.remove(scene.children[0]); 
@@ -173,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function newObject(objects, indexToRemove){
+
     if(!fullObjectScreen && indexToRemove!=-1){
         objects.splice(indexToRemove, 1);
     }
@@ -229,6 +251,9 @@ function newObject(objects, indexToRemove){
                     scene.rotateX(Math.random()*Math.PI*2);
                     scene.rotateY(Math.random()*Math.PI*2);
                     scene.rotateZ(Math.random()*Math.PI*2);
+
+                    document.getElementById("info").textContent = "";
+                    document.getElementById("guess").placeholder = "Guess here";
                 }
             }
         });
