@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
             break;
         }
       }
-      if(!correct){
+      if(!correct && guess!=""){
         timesWrong++;
         box.classList.add('shake');
         setTimeout(() => {
