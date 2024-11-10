@@ -4,6 +4,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
+
 
 const scene = new THREE.Scene();
 
@@ -56,6 +58,7 @@ txtbox.classList.add('intro')
 setTimeout(() => {
     txtbox.classList.remove('intro');
 }, 1100);  
+
 // Listener for the user input
 document.addEventListener('DOMContentLoaded', () => {
     const text = document.getElementById('guess');
@@ -168,17 +171,19 @@ function newObject(objects, indexToRemove){
     return [objects, currentObjIndex];
 }
 
-
-// Instantiates OrbitControls
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enablePan = false;
-controls.maxPolarAngle = Infinity;
-controls.minPolarAngle = -Infinity;
+// Instantiates trackballControls
+const controls = new TrackballControls(camera, renderer.domElement);
+// Pan false
+controls.noPan = true;
 // Set zoom limits
 controls.minDistance = 2; // Minimum zoom distance
 controls.maxDistance = 7; // Maximum zoom distance
 
+controls.rotateSpeed = 3;
+
 camera.position.z = 5;
+
+scene.rotation
 
 // Handles scene resizing
 // Load the font
