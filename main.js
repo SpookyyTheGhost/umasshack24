@@ -50,12 +50,19 @@ objects = funcReturn[0];
 var currentObjIndex = funcReturn[1];
 var timesWrong = 0;
 
+//intro
+const txtbox = document.getElementById('main');
+txtbox.classList.add('intro')
+setTimeout(() => {
+    txtbox.classList.remove('intro');
+}, 1100);  
 // Listener for the user input
 document.addEventListener('DOMContentLoaded', () => {
     const text = document.getElementById('guess');
     const subBut = document.getElementById('submit');
     const form = document.getElementById('form');
-
+    const box = document.getElementById('main');
+    
     function getGuess(event) {
         if(fullObjectScreen){
             fullObjectScreen = false;
@@ -89,7 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if(!correct){
         timesWrong++;
-        
+        box.classList.add('shake');
+        setTimeout(() => {
+            box.classList.remove('shake');
+        }, 500);    
         if(timesWrong == 3){
             document.getElementById("hint").textContent = "Hint: "+objects[currentObjIndex][2];
         }
