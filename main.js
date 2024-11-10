@@ -33,13 +33,13 @@ var fullObjectScreen = false;
 //Start of lists with models
 //Each index has these values String: fileNameOfObject, String[] correctGuesses, String: hint
 var objects = [
+    ["cube.glb", ["cube", "prism"], "Guess what shape the connected vertices would create."],
     ["sam.glb", ["sam the minuteman", "sam", "minuteman", "minuteman sam"], "Go! Go U! Go UMass!"], 
     ["donut.glb", ["donut", "doughnut"],  "We got some from Dunk's!"], 
     ["churro.glb", ["churro", "long star thing"], "Comes with a lot of sugar, cinnamon, and melted chocolate"],
     ["apple.glb", ["apple", "ringo", "manzana"], "Keeps the doctor away"],
     ["energydrink.glb", ["energy drink", "red bull", "redbull", "monster energy", "monster", "monster can", "can", "soda", "kan", "soda can", "coke", "pop"], "Gives you wings"],
     ["monkey.glb", ["monkey", "chimp", "monke", "suzanne"], "Don't go bananas!"],
-    ["cube.glb", ["cube", "prism"], "Guess what shape the connected vertices would create."],
     ["teapot.glb", ["teapot", "tea pot", "kettle", "tea kettle", "teakettle", "pot"], "Tea"],
     ["boat.glb", ["boat", "steamboat", "steam boat", "benchy", "ship", "3dbenchy", "3d benchy"], "Full steam ahead!"],
     ["gem.glb", ["gem", "gemstone", "gem stone", "diamond", "ruby"], "Shiny!"],
@@ -127,6 +127,7 @@ function newObject(objects, indexToRemove){
         objects.splice(indexToRemove, 1);
     }
     var currentObjIndex = fullObjectScreen ? indexToRemove : Math.floor(Math.random() * objects.length); //random num from [0, objects.length)
+    currentObjIndex = indexToRemove==-1 ? 0 : currentObjIndex;
     const modelLoader = new GLTFLoader();
     modelLoader.load( './models/'+objects[currentObjIndex][0], function ( gltf ) {
         // Traverse the model to access all children and their materials
