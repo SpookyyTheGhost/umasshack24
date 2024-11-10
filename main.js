@@ -61,6 +61,11 @@ setTimeout(() => {
     txtbox.classList.remove('intro');
 }, 1100);  
 
+const message = document.getElementById('message')
+message.classList.add('intro2')
+setTimeout(() => {
+    message.classList.remove('intro2');
+}, 6000);  
 // Listener for the user input
 document.addEventListener('DOMContentLoaded', () => {
     const text = document.getElementById('guess');
@@ -179,6 +184,7 @@ function newObject(objects, indexToRemove){
     currentObjIndex = indexToRemove==-1 ? 0 : currentObjIndex;
     if(intro){
         intro = false;
+        message.style.transform = 'translateX(100vw)';
         currentObjIndex = 0;
     }
     const modelLoader = new GLTFLoader();
@@ -242,10 +248,6 @@ controls.minDistance = 2; // Minimum zoom distance
 controls.maxDistance = 7; // Maximum zoom distance
 
 controls.rotateSpeed = 3;
-
-scene.rotateX(Math.random()*Math.PI*2);
-scene.rotateY(Math.random()*Math.PI*2);
-scene.rotateZ(Math.random()*Math.PI*2);
 
 camera.position.z = 5;
 
