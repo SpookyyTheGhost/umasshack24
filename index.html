@@ -23,22 +23,5 @@
 
     <script type="module" src="/main.js"></script>
 
-    <script>
-      
-      document.addEventListener('DOMContentLoaded', () => {
-        const text = document.getElementById('guess');
-        const subBut = document.getElementById('submit');
-        const form = document.getElementById('form');
-
-        function getGuess(event) {
-          event.preventDefault();
-          var guess = text.value;
-          form.reset();
-          console.log(guess);  
-      }
-
-        subBut.addEventListener('click', getGuess);
-      });
-    </script>
   </body>
 </html>
