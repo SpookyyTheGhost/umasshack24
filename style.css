@@ -59,6 +59,40 @@ h1 {
   }
 }
 
+@keyframes Shake {
+  0% {
+    transform: rotate(5deg);
+  }
+
+  10% {
+    transform: rotate(-6deg);
+  }
+
+  20% {
+    transform: rotate(5deg);
+  }
+
+  30% {
+    transform: rotate(-6deg);
+  }
+
+  40% {
+    transform: rotate(5deg);
+  }
+
+  50% {
+    transform: rotate(-6deg);
+  }
+
+  75% {
+    transform: rotate(5deg);
+  }
+
+  100% {
+    transform: rotate(-6deg);
+  }
+}
+
 .Entry{
   position:absolute;
   height:45px;
@@ -74,6 +108,19 @@ h1 {
   animation: fadeIn 1s ease-in-out;
   border-radius: 20px;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+.Hint{
+  position:absolute;
+  height:10px;
+  width:300px;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%) ;
+  color:white;
   display: flex;
   justify-content: center; 
   align-items: center;

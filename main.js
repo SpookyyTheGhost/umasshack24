@@ -16,6 +16,7 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
 document.body.appendChild( renderer.domElement );
 
+
 //Start of lists with models
 //Each index has these values String: fileNameOfObject, String[] correctGuesses, String: hint
 var objects = [
@@ -24,12 +25,14 @@ var objects = [
     ["churro.glb", ["churro", "long star thing"], "Comes with a lot of sugar, cinnamon, and melted chocolate"],
     ["apple.glb", ["apple", "ringo", "manzana"], "Keeps the doctor away"],
     ["energydrink.glb", ["energy drink", "red bull", "redbull", "monster energy", "monster", "monster can", "can", "soda", "coke", "pop"], "Gives you wings"],
-    ["monkey.glb", ["monkey", "chimp", "suzanne"], "Gives you wings"]
+    ["monkey.glb", ["monkey", "chimp", "monke", "suzanne"], "Don't go bananas!"]
 ]
 
 var funcReturn = newObject(objects, -1);
 objects = funcReturn[0];
 var currentObjIndex = funcReturn[1];
+var timesWrong = 0;
+var wrong = true;
 
 // Listener for the user input
 document.addEventListener('DOMContentLoaded', () => {
@@ -42,19 +45,33 @@ document.addEventListener('DOMContentLoaded', () => {
       var guess = text.value;
       form.reset();
       guess = guess.toLowerCase();
+      var correct = false;
       for(var i = 0; i<objects[currentObjIndex][1].length; i++){
         if(objects[currentObjIndex][1][i]==guess){
+            document.getElementById("hint").textContent = "";
             while(scene.children.length > 0){ 
                 scene.remove(scene.children[0]); 
             }
             funcReturn = newObject(objects, currentObjIndex);
             objects = funcReturn[0];
             currentObjIndex = funcReturn[1];
+            timesWrong = 0;
+            correct = true;
             break;
         }
       }
-      console.log(guess);  
-  }
+      if(!correct){
+        timesWrong++;
+        
+        if(timesWrong == 3){
+            document.getElementById("hint").textContent = "Hint: "+objects[currentObjIndex][2];
+        }
+
+        
+      }
+      
+      console.log(timesWrong);
+    }
 
     subBut.addEventListener('click', getGuess);
   });
