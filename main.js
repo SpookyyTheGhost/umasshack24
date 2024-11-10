@@ -20,6 +20,7 @@ document.body.appendChild( renderer.domElement );
 
 var fullObjectScreen = false;
 
+var textMeshExists = false;
 // const geometry = new THREE.TorusGeometry(1, 0.1, 8, 100);
 // const material = new THREE.MeshStandardMaterial({color:0xffffff});
 // const torus = new THREE.Mesh(geometry, material);
@@ -33,6 +34,7 @@ var fullObjectScreen = false;
 //Start of lists with models
 //Each index has these values String: fileNameOfObject, String[] correctGuesses, String: hint
 var objects = [
+    ["stars.glb", [" "], ""],
     ["cube.glb", ["cube", "prism"], "Guess what shape the connected vertices would create."],
     ["sam.glb", ["sam the minuteman", "sam", "minuteman", "minuteman sam"], "Go! Go U! Go UMass!"], 
     ["donut.glb", ["donut", "doughnut"],  "We got some from Dunk's!"], 
@@ -51,7 +53,7 @@ var funcReturn = newObject(objects, -1);
 objects = funcReturn[0];
 var currentObjIndex = funcReturn[1];
 var timesWrong = 0;
-
+var intro = true;
 //intro
 const txtbox = document.getElementById('main');
 txtbox.classList.add('intro')
@@ -67,6 +69,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const box = document.getElementById('main');
     
     function getGuess(event) {
+        var correct = false;
+        if(intro){
+            while(scene.children.length > 0){ 
+                scene.remove(scene.children[0]); 
+            }
+            funcReturn = newObject(objects, currentObjIndex);
+            objects = funcReturn[0];
+            currentObjIndex = funcReturn[1];
+            timesWrong = 0;
+        }
         if(fullObjectScreen){
             fullObjectScreen = false;
             while(scene.children.length > 0){ 
@@ -81,22 +93,23 @@ document.addEventListener('DOMContentLoaded', () => {
       var guess = text.value;
       form.reset();
       guess = guess.toLowerCase();
-      var correct = false;
-      for(var i = 0; i<objects[currentObjIndex][1].length; i++){
-        if(objects[currentObjIndex][1][i]==guess){
-            document.getElementById("hint").textContent = "";
-            while(scene.children.length > 0){ 
-                scene.remove(scene.children[0]); 
-            }
-            fullObjectScreen = true;
-            funcReturn = newObject(objects, currentObjIndex);
-            
+    if(objects.length>0){
+        for(var i = 0; i<objects[currentObjIndex][1].length; i++){
+            if(objects[currentObjIndex][1][i]==guess){
+                document.getElementById("hint").textContent = "";
+                while(scene.children.length > 0){ 
+                    scene.remove(scene.children[0]); 
+                }
+                fullObjectScreen = true;
+                funcReturn = newObject(objects, currentObjIndex);
+                
 
-            timesWrong = 0;
-            correct = true;
-            break;
+                timesWrong = 0;
+                correct = true;
+                break;
+            }
         }
-      }
+    }
       if(!correct && guess!=""){
         timesWrong++;
         box.classList.add('shake');
@@ -114,20 +127,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
         
       }
-      
-      console.log(timesWrong);
     }
 
     subBut.addEventListener('click', getGuess);
   });
+  const textMesh = new THREE.Object3D;
+  function winGameScreen(){
+    scene.rotation.set(0,0,0);
+    document.getElementById("main").style.display = "none";
+    document.getElementById("hint").textContent = "";
+    while(scene.children.length > 0){ 
+        scene.remove(scene.children[0]); 
+    }
+    const loader = new FontLoader();
+    
+    loader.load('./fonts/droid_sans_regular.typeface.json', function (font) {
+        const textGeometry = new TextGeometry('You Win!', {
+            font: font,
+            size: 1,
+            height: 0.2,
+            curveSegments: 0.005,
+            bevelEnabled: false,
+            bevelThickness: 0.03,
+            bevelSize: 0.02,
+            bevelOffset: 0,
+            bevelSegments: 5
+        });
+        textGeometry.center();
+        const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe:true}); //currently invis   
+        textMesh.add(new THREE.Mesh(textGeometry, textMaterial));
+        scene.add(textMesh);
+        textMeshExists = true;     
+    },
+    undefined,
+    function (error) {
+        console.error('An error occurred loading the font', error);
+    }
+);
+  }
 
 
 function newObject(objects, indexToRemove){
     if(!fullObjectScreen && indexToRemove!=-1){
         objects.splice(indexToRemove, 1);
     }
+    if(objects.length==0){
+        winGameScreen();
+        return [objects, 0];
+    }
     var currentObjIndex = fullObjectScreen ? indexToRemove : Math.floor(Math.random() * objects.length); //random num from [0, objects.length)
     currentObjIndex = indexToRemove==-1 ? 0 : currentObjIndex;
+    if(intro){
+        intro = false;
+        currentObjIndex = 0;
+    }
     const modelLoader = new GLTFLoader();
     modelLoader.load( './models/'+objects[currentObjIndex][0], function ( gltf ) {
         // Traverse the model to access all children and their materials
@@ -212,7 +265,11 @@ window.addEventListener('resize', () => {
 });
 
 function animate() {
+
 	controls.update();
+    if(textMeshExists){
+        textMesh.rotateY(0.01);
+    }
 	renderer.render( scene, camera );
 }
 
