@@ -16,6 +16,17 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animate );
 document.body.appendChild( renderer.domElement );
 
+var fullObjectScreen = false;
+
+// const geometry = new THREE.TorusGeometry(1, 0.1, 8, 100);
+// const material = new THREE.MeshStandardMaterial({color:0xffffff});
+// const torus = new THREE.Mesh(geometry, material);
+// scene.add(torus);
+// const pointLight = new THREE.PointLight(0xffffff, 5);
+// pointLight.position.set(2,2,2);
+// scene.add(pointLight);
+// const ambLight = new THREE.AmbientLight(0xffffff, 0.4);
+// scene.add(ambLight);
 
 //Start of lists with models
 //Each index has these values String: fileNameOfObject, String[] correctGuesses, String: hint
@@ -29,14 +40,15 @@ var objects = [
     ["cube.glb", ["cube", "prism"], "Guess what shape the connected vertices would create."],
     ["teapot.glb", ["teapot", "tea pot", "kettle", "tea kettle", "teakettle", "pot"], "Tea"],
     ["boat.glb", ["boat", "steamboat", "steam boat", "benchy", "ship", "3dbenchy", "3d benchy"], "Full steam ahead!"],
-    ["gem.glb", ["gem", "gemstone", "gem stone", "diamond", "ruby"], "Shiny!"]
+    ["gem.glb", ["gem", "gemstone", "gem stone", "diamond", "ruby"], "Shiny!"],
+    ["pear.glb", ["pear"], "This fruit pairs well with cheese!"],
+    ["pumpkin.glb", ["pumpkin"], "Cinderella story"]
 ]
 
 var funcReturn = newObject(objects, -1);
 objects = funcReturn[0];
 var currentObjIndex = funcReturn[1];
 var timesWrong = 0;
-var wrong = true;
 
 // Listener for the user input
 document.addEventListener('DOMContentLoaded', () => {
@@ -45,6 +57,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('form');
 
     function getGuess(event) {
+        if(fullObjectScreen){
+            fullObjectScreen = false;
+            while(scene.children.length > 0){ 
+                scene.remove(scene.children[0]); 
+            }
+            funcReturn = newObject(objects, currentObjIndex);
+            objects = funcReturn[0];
+            currentObjIndex = funcReturn[1];
+            timesWrong = 0;
+        }
       event.preventDefault();
       var guess = text.value;
       form.reset();
@@ -56,9 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
             while(scene.children.length > 0){ 
                 scene.remove(scene.children[0]); 
             }
+            fullObjectScreen = true;
             funcReturn = newObject(objects, currentObjIndex);
-            objects = funcReturn[0];
-            currentObjIndex = funcReturn[1];
+            
+
             timesWrong = 0;
             correct = true;
             break;
@@ -82,10 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 function newObject(objects, indexToRemove){
-    if(indexToRemove!=-1){
+    if(!fullObjectScreen && indexToRemove!=-1){
         objects.splice(indexToRemove, 1);
     }
-    var currentObjIndex = Math.floor(Math.random() * objects.length); //random num from [0, objects.length)
+    var currentObjIndex = fullObjectScreen ? indexToRemove : Math.floor(Math.random() * objects.length); //random num from [0, objects.length)
     const modelLoader = new GLTFLoader();
     modelLoader.load( './models/'+objects[currentObjIndex][0], function ( gltf ) {
         // Traverse the model to access all children and their materials
@@ -95,16 +118,36 @@ function newObject(objects, indexToRemove){
                 const geometry = child.geometry;
 
                 // Create a PointsMaterial for rendering the vertices as points
-                const pointsMaterial = new THREE.PointsMaterial({
-                    color: 0xffffff, // Color of the points
-                    size: 0.02,      // Size of each point
-                });
+                if(fullObjectScreen){
+                    const standardMaterial = new THREE.MeshStandardMaterial({color: 0xffffff});
+                
 
-                // Create a Points object from the geometry and the material
-                const points = new THREE.Points(geometry, pointsMaterial);
+                    // Create a Points object from the geometry and the material
+                    const stan = new THREE.Mesh(geometry, standardMaterial);
 
-                // Add the Points object to the scene
-                scene.add(points);
+                    // Add the Points object to the scene
+                    scene.add(stan);
+
+
+                    const pointLight = new THREE.PointLight(0xffffff, 5);
+                    pointLight.position.set(2,2,2);
+                    scene.add(pointLight);
+                    const ambLight = new THREE.AmbientLight(0xffffff, 0.4);
+                    scene.add(ambLight);
+                }
+                else{
+                    const pointsMaterial = new THREE.PointsMaterial({
+                        color: 0xffffff, // Color of the points
+                        size: 0.02,      // Size of each point
+                    });
+                
+
+                    // Create a Points object from the geometry and the material
+                    const points = new THREE.Points(geometry, pointsMaterial);
+
+                    // Add the Points object to the scene
+                    scene.add(points);
+                }
             }
         });
 
@@ -115,16 +158,12 @@ function newObject(objects, indexToRemove){
     return [objects, currentObjIndex];
 }
 
-// const geometry = new THREE.BoxGeometry( 1,1,1 ); 
-// const material = new THREE.PointsMaterial( { color: 0xffffff});
-// material.size = 0.04;
-// const cube = new THREE.Points( geometry, material );
-
-// scene.add( cube );
 
 // Instantiates OrbitControls
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enablePan = false;
+controls.maxPolarAngle = Infinity;
+controls.minPolarAngle = -Infinity;
 // Set zoom limits
 controls.minDistance = 2; // Minimum zoom distance
 controls.maxDistance = 7; // Maximum zoom distance
