@@ -166,10 +166,13 @@ function newObject(objects, indexToRemove){
 
                     // Add the Points object to the scene
                     scene.add(points);
+
+                    scene.rotateX(Math.random()*Math.PI*2);
+                    scene.rotateY(Math.random()*Math.PI*2);
+                    scene.rotateZ(Math.random()*Math.PI*2);
                 }
             }
         });
-
 
     }, undefined, (error) => {
         console.error('An error occurred while loading the GLTF model:', error);
@@ -186,6 +189,10 @@ controls.minDistance = 2; // Minimum zoom distance
 controls.maxDistance = 7; // Maximum zoom distance
 
 controls.rotateSpeed = 3;
+
+scene.rotateX(Math.random()*Math.PI*2);
+scene.rotateY(Math.random()*Math.PI*2);
+scene.rotateZ(Math.random()*Math.PI*2);
 
 camera.position.z = 5;
 
